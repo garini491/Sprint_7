@@ -45,10 +45,10 @@ public class OrderCreateTest {
     @Parameterized.Parameters
     public static Object[][] requestParams() {
         return new Object[][] {
-                    OrderData.getGreyColorOrder(),
                     OrderData.getBlackColorOrder(),
-                    OrderData.getTwoColorOrder(),
-                    OrderData.getNonColorOrder(),
+                    OrderData.getGreyColorOrder(),
+                    OrderData.getTwoColorsOrder(),
+                    OrderData.getNonColorsOrder(),
         };
     }
     @Before

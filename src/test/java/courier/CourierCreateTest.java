@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import static org.apache.http.HttpStatus.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class CourierCreateTest {
@@ -32,7 +33,7 @@ public class CourierCreateTest {
         int statusCode = response.extract().statusCode();
         boolean ok = response.extract().path("ok");
         assertEquals(SC_CREATED,statusCode);
-        assertEquals(true, ok);
+        assertTrue(ok);
 
     }
 
@@ -41,14 +42,14 @@ public class CourierCreateTest {
     @DisplayName("Проверка создания двух курьеров с одинаковыми данными")
     public void courierDoubleCreateTest() {
         courier = CourierData.getDefoultCourier();
-        ValidatableResponse responseFirst = courierClient.create(courier);
-        ValidatableResponse responseSecond = courierClient.create(courier);
+        courierClient.create(courier);
+        ValidatableResponse response = courierClient.create(courier);
         ValidatableResponse loginResponse = courierClient.login(CourierCredentials.from(courier));
         id = loginResponse.extract().path("id");
-        int statuseCode = responseSecond.extract().statusCode();
+        int statusCode = response.extract().statusCode();
         String expectedMessage = "Этот логин уже используется.";
-        String message = responseSecond.extract().path("message");
-        assertEquals("Код ответа не соответствует документации",SC_CONFLICT, statuseCode);
+        String message = response.extract().path("message");
+        assertEquals("Код ответа не соответствует документации",SC_CONFLICT, statusCode);
         assertEquals("Текст сообщения не соответствует документации",expectedMessage, message);
     }
     @Test
@@ -56,10 +57,10 @@ public class CourierCreateTest {
     public void courierCreateWithoutLoginTest() {
         courier = CourierData.getCourierWithoutLogin();
         ValidatableResponse response = courierClient.create(courier);
-        int statuseCode = response.extract().statusCode();
+        int statusCode = response.extract().statusCode();
         String expectedMessage = "Недостаточно данных для создания учетной записи";
         String message = response.extract().path("message");
-        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statuseCode);
+        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statusCode);
         assertEquals("Текст сообщения не соответствует документации",expectedMessage, message);
     }
 
@@ -68,10 +69,10 @@ public class CourierCreateTest {
     public void courierCreateWithoutPassTest() {
         courier = CourierData.getCourierWithoutPass();
         ValidatableResponse response = courierClient.create(courier);
-        int statuseCode = response.extract().statusCode();
+        int statusCode = response.extract().statusCode();
         String expectedMessage = "Недостаточно данных для создания учетной записи";
         String message = response.extract().path("message");
-        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statuseCode);
+        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statusCode);
         assertEquals("Текст сообщения не соответствует документации",expectedMessage, message);
     }
     @Test
@@ -79,10 +80,10 @@ public class CourierCreateTest {
     public void courierCreateWithoutNameTest() {
         courier = CourierData.getCourierWithoutName();
         ValidatableResponse response = courierClient.create(courier);
-        int statuseCode = response.extract().statusCode();
+        int statusCode = response.extract().statusCode();
         String expectedMessage = "Недостаточно данных для создания учетной записи";
         String message = response.extract().path("message");
-        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statuseCode);
+        assertEquals("Код ответа не соответствует документации",SC_BAD_REQUEST, statusCode);
         assertEquals("Текст сообщения не соответствует документации",expectedMessage, message);
     }
     @After

@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 
 public class OrderClient extends Client{
     private final static String CREATE_PATH = "/api/v1/orders";
-    private final static String ORDER_LIST_PATH = "/v1/orders";
+    private final static String ORDER_LIST_PATH = "/api/v1/orders"; // но такой эндпоинт не соответствует документации
 
     private final static String CANCEL_PATH = "/api/v1/orders/cancel";
 

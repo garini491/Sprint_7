@@ -15,6 +15,9 @@ public class OrderListTest {
     public void setUp() {
         orderClient = new OrderClient();
     }
+
+    // ошибка в endpoint для просмотра списка заказов. Но сами тесты написаны согласно документации
+    // проверял в постмане, ответ соответствует тому что в тесте, когда он падает
     @Test
     @Description("Проверка наличия orders в ответе на запрос получения информации по заказам")
     public void orderListHasOrders() {
